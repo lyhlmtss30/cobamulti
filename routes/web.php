@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use Illuminate\Support\Facades\Auth;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -15,11 +17,14 @@ use App\Http\Controllers\HomeController;
 */
 Route::middleware(['CekRole:user'])->group(function (){
     //dasbod admin
-    Route::get('/home', [HomeController::class, 'dashboardAdmin'])->name('dashboardadmin');
 
+    Route::get('/user', [HomeController::class, 'dashboardUser'])->name('dashboarduser');
 
     //dasbod user
-    Route::get('/user', [HomeController::class, 'dashboardUser'])->name('dashboarduser');
+});
+
+Route::middleware(['CekRole:admin'])->group(function (){
+Route::get('/admin', [HomeController::class, 'dashboardAdmin'])->name('dashboardadmin');
 });
 Route::get('/', function () {
     return view('welcome');

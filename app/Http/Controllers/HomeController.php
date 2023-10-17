@@ -25,18 +25,20 @@ class HomeController extends Controller
      */
     public function dashboardAdmin()
     {
-        if (Auth::user()->role == 1) {
+        if (Auth::user()->role == 'admin') {
             return view('dashboard_component.admin');
-        } else if (Auth::user()->role == 2){
-            return view('dashboard_component.user');        }
+        // } else if (Auth::user()->role == 2){
+        //     return view('404error');
+        // }
+        }
     }
     public function dashboardUser()
     {
-        if (Auth::user()->role == 1) {
-            return view('dashboard_component.admin');
-        } else if (Auth::user()->role == 2) {
+        if (Auth::user()->role == 'user') {
             return view('dashboard_component.user');
-        }
+        // } else if (Auth::user()->role == 1){
+        //     return view('404error');
+        // }
     }
-
+}
 }
