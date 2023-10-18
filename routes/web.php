@@ -19,13 +19,16 @@ Route::middleware(['CekRole:user'])->group(function (){
     //dasbod admin
 
     Route::get('/user', [HomeController::class, 'dashboardUser'])->name('dashboarduser');
-
+    Route::get('/guru', function () {
+        return view('dashboard_component.guru');
+    })->name('dashboardadmin');
     //dasbod user
 });
 
 Route::middleware(['CekRole:admin'])->group(function (){
-Route::get('/admin', [HomeController::class, 'dashboardAdmin'])->name('dashboardadmin');
+Route::get('/admin', [HomeController::class, 'dashboardAdmin'])->name('dashboardguru');
 });
+
 Route::get('/', function () {
     return view('welcome');
 });
