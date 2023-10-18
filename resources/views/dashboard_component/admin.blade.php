@@ -99,7 +99,7 @@
             <!-- Page Content  -->
             <div id="content" class="p-4 p-md-5 pt-5">
 
-                <h2 class="mb-4">Sidebar #02</h2>
+                <h2 class="mb-4">adminnn #02</h2>
 				<a href="" type="button" class="btn btn-info">Tambah</a>
 				<br><br><br>
                 <table class="table table-success table-striped">
