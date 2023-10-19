@@ -36,14 +36,14 @@
         .logout-button {
             margin: 20px;
             padding: 10px 20px;
-            background-color: #f44336;
+            background-color: #8d1818;
             color: #fff;
             border: none;
             cursor: pointer;
         }
 
         .logout-button:hover {
-            background-color: #c82333;
+            background-color: #aa5751;
         }
 
         /* Style untuk judul sidebar */
@@ -69,6 +69,15 @@
         <i class="fas fa-language "></i> Bahasa Indonesia
     </a>
 
+    <a href="{{ route('guru') }}"
+    class="{{ request()->is('guru') ? 'active' : '' }}">
+        <i class="fas fa-language "></i> data guru
+    </a>
+
+    <a href="{{ route('mapel') }}"
+    class="{{ request()->is('mapel') ? 'active' : '' }}">
+    <i class="fas fa-language"></i> Data Mapel</a>
+
     <a href="#"><i class="fas fa-language"></i> Bahasa Jepang</a>
 
     <a href="#"><i class="fas fa-language"></i> Bahasa Inggris</a>
@@ -76,12 +85,7 @@
     <a href="#"><i class="fas fa-language"></i> Bahasa Jawa</a>
 
     <a href="#"><i class="fas fa-cog"></i> Pengaturan</a>
-    <button class="logout-button" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-        Logout
-    </button>
-    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-        @csrf
-    </form>
+
     <button class="logout-button" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
         <i class="fas fa-sign-out-alt"></i> Logout
     </button>
@@ -89,11 +93,12 @@
         @csrf
     </form>
 </div>
-
-<div class="main-content py-3 px-3">
-    <div class="container-fluid">
-        <!-- Isi Konten Aplikasi Anda -->
-    </div>
+<div class="container">
+    <main>
+        <div class="d-flex px-5">
+            @yield('sidebar')
+        </div>
+    </main>
 </div>
 
 </body>

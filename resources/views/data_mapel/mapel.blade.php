@@ -1,5 +1,5 @@
-@extends('layouts.navbar')
-@section('content')
+@extends('layouts.sidebar')
+@section('sidebar')
 <!DOCTYPE html>
 <html lang="en">
 
@@ -18,6 +18,12 @@
 body {
     font-family: Arial, sans-serif;
     background-color: #f2f2f2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    padding-left: 200px;
 }
 
 /* Gaya untuk kontainer tabel */
@@ -81,6 +87,49 @@ body {
 .add-button:hover {
     background-color: #0056b3;
 }
+.btn-dark {
+            background-color: #343a40;
+            /* Warna latar belakang tombol */
+            color: #ffffff;
+            /* Warna teks tombol */
+            transition: box-shadow 0.3s, transform 0.3s, color 0.3s;
+            /* Efek transisi untuk bayangan, transformasi, dan warna teks */
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+            /* Bayangan awal */
+        }
+
+        .btn-dark:hover {
+            background-color: #ffffff;
+            /* Warna latar belakang saat dihover */
+            color: #343a40;
+            /* Warna teks saat dihover */
+            transform: scale(1.1);
+            /* Perubahan ukuran saat dihover */
+            box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.5);
+            /* Bayangan saat dihover */
+        }
+
+        .btn-danger {
+            background-color: #ff0000;
+            /* Warna latar belakang tombol */
+            color: #ffffff;
+            /* Warna teks tombol */
+            transition: box-shadow 0.3s, transform 0.3s, color 0.3s;
+            /* Efek transisi untuk bayangan, transformasi, dan warna teks */
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+            /* Bayangan awal */
+        }
+
+        .btn-danger:hover {
+            background-color: #ffffff;
+            /* Warna latar belakang saat dihover */
+            color: #343a40;
+            /* Warna teks saat dihover */
+            transform: scale(1.1);
+            /* Perubahan ukuran saat dihover */
+            box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.5);
+            /* Bayangan saat dihover */
+        }
 
 
 </style>
@@ -92,28 +141,32 @@ body {
         <table class="custom-table">
             <thead>
                 <tr>
-                    <th>Nama</th>
-                    <th>Mapel</th>
+                    <th>No</th>
                     <th>Nama Guru</th>
-                    <th>Keterangan</th>
-                    <th>Bukti</th>
+                    <th>foto</th>
+
                     <th>Aksi</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
-                    <td>John Doe</td>
-                    <td>Bahasa Indo</td>
+                    <td>1</td>
                     <td>Tuti hastuti</td>
-                    <td>saya sudah mengumpulkan</td>
-
+                    <td>gambar</td>
+                    <td>
+                        <div class="btn-group d-flex align-items-center" role="group">
+                            <form class="d-flex" action="" method="post" style="width: 125px;">
+                                @csrf
+                                <a href="" class="btn btn-dark btn-sm me-2"><i class="fas fa-pencil-alt" style="margin-top: 8px"></i></a>
+                                @method('DELETE')
+                                <button class="btn btn-danger btn-sm" onclick="confirmDelete(event)"><i class="fas fa-trash-alt"></i></button>
+                            </form>
+                        </div>
+                    </td>
                 </tr>
 
             </tbody>
         </table>
-        <button type="button" class="btn btn-primary">
-            Launch demo modal
-          </button>
     </div>
 
     <!-- Button trigger modal -->
@@ -126,7 +179,7 @@ body {
           <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-        <div class="modal-body">
+        <div class="m odal-body">
           ...
         </div>
         <div class="modal-footer">
@@ -136,7 +189,7 @@ body {
       </div>
     </div>
 
-    
+
   </div>
 </body>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
