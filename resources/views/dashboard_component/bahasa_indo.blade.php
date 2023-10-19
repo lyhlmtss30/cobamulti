@@ -1,8 +1,10 @@
+@extends('layouts.navbar')
+@section('content')
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-    <meta charset="utf-8">
+    <head>
+        <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Sidebar 02</title>
     <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
@@ -10,155 +12,110 @@
     <link rel="stylesheet" href="{{ asset('navbar') }}/css/style.css">
 </head>
 <style>
-    /* CSS untuk styling elemen formulir */
-    body {
-        background-color: #f2f2f2;
-        font-family: 'Poppins', sans-serif;
-    }
+   /* Gaya dasar */
+/* Gaya dasar */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f2f2f2;
+}
 
-    .container {
-        background-color: #fff;
-        padding: 10px;
-        border-radius: 10px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    }
+/* Gaya untuk kontainer tabel */
+.table-container {
+    max-width: 800px;
+    margin: 0 auto;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
 
-    h4 {
-        font-weight: bold;
-        color: #333;
-    }
+/* Gaya untuk tabel */
+.custom-table {
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid #ddd;
+    background-color: #fff;
+}
 
-    .border-form {
-        border: 1px solid #ddd;
-        padding: 15px;
-        border-radius: 5px;
-        margin-bottom: 15px;
-        background-color: #f9f9f9;
-    }
+/* Gaya untuk header tabel */
+.custom-table th {
+    background-color: #4f32bb;
+    color: #fff;
+    font-weight: bold;
+    padding: 10px 20px;
+    text-align: left;
+}
 
-    .input-text {
-        width: 100%;
-        padding: 10px;
-        margin-bottom: 10px;
-        border: 1px solid #ccc;
-        border-radius: 3px;
-    }
+/* Gaya untuk baris ganjil */
+.custom-table tbody tr:nth-child(odd) {
+    background-color: #f2f2f2;
+}
 
-    select.input-text {
-        width: 100%;
-    }
+/* Gaya untuk baris genap */
+.custom-table tbody tr:nth-child(even) {
+    background-color: #fff;
+}
 
-    .text-danger {
-        color: red;
-    }
+/* Gaya saat mengarahkan pointer ke baris tabel */
+.custom-table tbody tr:hover {
+    background-color: #002f61;
+    color: #fff;
+    cursor: pointer;
+}
 
-    .input-file {
-        width: 100%;
-        padding: 10px;
-        margin-top: 10px;
-        border: 1px solid #ccc;
-        border-radius: 3px;
-        background-color: #f9f9f9;
-    }
+/* Gaya untuk sel data */
+.custom-table td {
+    padding: 10px 20px;
+}
+/* Gaya tombol tambah */
+.add-button {
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
 
-    .input-submit {
-        background-color: #007bff;
-        color: #fff;
-        border: none;
-        padding: 10px;
-        border-radius: 5px;
-        cursor: pointer;
-    }
+.add-button:hover {
+    background-color: #0056b3;
+}
 
-    .input-submit:hover {
-        background-color: #0056b3;
-    }
+
 </style>
 
 <body>
-    <div class="container mt-4">
-        <h4 class="text-center" style="font-family: 'Poppins', sans-serif; font-weight: bold; color:#fff;">Tambah Film</h4>
-        <br>
-        <div class="row">
-            <div class="col-4">
-                <div class="border-form">
-                    <form action="{{ route('bahasa_indo') }}" method="POST" enctype="multipart/form-data">
-                        @csrf
-                        <label for="nama">Nama</label>
-                        <input type="text" id="nama" name="nama" class="input-text" placeholder="Nama" value="{{ old('nama') }}">
-                        @error('nama')
-                        <p class="text-danger">{{ $message }}</p>
-                        @enderror
-                        <label for="tanggal">Tanggal</label>
-                        <input type="text" id="tanggal" name="tanggal" class="input-text" placeholder="Tanggal"
-                            value="{{ old('tanggal') }}">
-                        @error('tanggal')
-                        <p class="text-danger">{{ $message }}</p>
-                        @enderror
-                        <label for="cast">Cast</label>
-                        <input type="text" id="cast" name="cast" class="input-text" placeholder="Cast"
-                            value="{{ old('cast') }}">
-                        @error('cast')
-                        <p class="text-danger">{{ $message }}</p>
-                        @enderror
-                        <label for="minimal_usia">Minimal Usia</label>
-                        <input type="number" id="minimal_usia" name="minimal_usia" class="input-text" placeholder="Minimal Usia"
-                            min="0" value="{{ old('minimal_usia') }}">
-                        @error('minimal_usia')
-                        <p class="text-danger">{{ $message }}</p>
-                        @enderror
-                        <label for="status">Status</label>
-                        <select name="status" id="status" class="input-text">
-                            <option value="" disabled selected>Status</option>
-                            <option value="nowplaying">Now Playing</option>
-                            <option value="commingsoon">Coming Soon</option>
-                        </select>
-                        @error('status')
-                        <p class="text-danger">{{ $message }}</p>
-                        @enderror
-                </div>
-            </div>
 
-            <div class="col-4">
-                <div class="border-form p-3">
-                    <label for="durasi">Durasi</label>
-                    <input type="number" id="durasi" name="durasi" class="input-text" placeholder="Durasi"
-                        value="{{ old('durasi') }}">
-                    @error('durasi')
-                    <p class="text-danger">{{ $message }}</p>
-                    @enderror
-                    <label for="jadwal_tayang">Jadwal Tayang</label>
-                    <input type="date" id="jadwal_tayang" name="jadwal_tayang" class="input-text"
-                        placeholder="Jadwal Tayang" value="{{ old('jadwal_tayang') }}">
-                    @error('jadwal_tayang')
-                    <p class="text-danger">{{ $message }}</p>
-                    @enderror
-                    <label for="trailer">Link Video Trailer</label>
-                    <input type="url" id="trailer" name="trailer" class="input-text" placeholder="Link Video Trailer"
-                        value="{{ old('trailer') }}">
-                    @error('trailer')
-                    <p class="text-danger">{{ $message }}</p>
-                    @enderror
-                    <label for="sinopsis">Sinopsis</label>
-                    <textarea name="sinopsis" id="sinopsis" class="input-text" cols="30" rows="3"
-                        placeholder="Sinopsis">{{ old('sinopsis') }}</textarea>
-                    @error('sinopsis')
-                    <p class="text-danger">{{ $message }}</p>
-                    @enderror
-                </div>
-            </div>
+    <div class="table-container">
+        <button class="add-button"><i class="fa fa-plus"></i> Tambah</button>
+        <table class="custom-table">
+            <thead>
+                <tr>
+                    <th>Nama</th>
+                    <th>Mapel</th>
+                    <th>Nama Guru</th>
+                    <th>Keterangan</th>
+                    <th>Bukti</th>
+                    <th>Aksi</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>John Doe</td>
+                    <td>Bahasa Indo</td>
+                    <td>Tuti hastuti</td>
+                    <td>saya sudah mengumpulkan</td>
 
+                </tr>
 
-
-        <center>
-            <br><br>
-            <label for="thumbnail" style="color: #fff">Upload Thumbnail</label>
-            <input type="file" id="thumbnail" name="thumbnail" accept="image/*" class="input-file" required
-                style="width: 90%;">
-            <button type="submit" class="input-submit" style="width: 90%;">Upload</button>
-        </center>
-        </form>
+            </tbody>
+        </table>
     </div>
+</body>
+</html>
+
 </body>
 
 </html>
+@endsection
+

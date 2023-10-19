@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\LoginController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MapelController;
@@ -17,6 +18,8 @@ use Illuminate\Support\Facades\Auth;
 |
 */
 Route::middleware(['CekRole:user'])->group(function (){
+    Route::post('/logout',[LoginController::class, 'logout'])->name('logout');
+
     //dasbod admin
 
     Route::get('dashboard_component.bahasa_indo', [MapelController::class, 'index'])->name('bahasa_indo');

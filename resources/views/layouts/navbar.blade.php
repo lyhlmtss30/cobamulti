@@ -80,5 +80,10 @@
             </ul>
         </div>
     </nav>
+    <main>
+        <div class="d-flex py-5">
+            @yield('content')
+        </div>
+    </main>
 </body>
 </html>
