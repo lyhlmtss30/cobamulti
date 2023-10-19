@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\MapelController;
 use Illuminate\Support\Facades\Auth;
 
 
@@ -18,11 +19,13 @@ use Illuminate\Support\Facades\Auth;
 Route::middleware(['CekRole:user'])->group(function (){
     //dasbod admin
 
+    Route::get('dashboard_component.bahasa_indo', [MapelController::class, 'index'])->name('bahasa_indo');
     Route::get('/user', [HomeController::class, 'dashboardUser'])->name('dashboarduser');
     Route::get('/guru', function () {
         return view('dashboard_component.guru');
     })->name('dashboardadmin');
     //dasbod user
+
 });
 
 Route::middleware(['CekRole:admin'])->group(function (){
@@ -34,3 +37,4 @@ Route::get('/', function () {
 });
 
 Auth::routes();
+

@@ -16,22 +16,86 @@
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 </head>
+<style>/* Reset some default browser styles */
+    /* Reset some default browser styles */
+body, ul {
+    margin: 0;
+    padding: 0;
+}
+
+/* Style for the navbar */
+.navbar {
+    background-color: #007bff; /* Warna biru yang menarik */
+    color: #fff;
+    padding: 10px 0;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Efek bayangan di bawah navbar */
+}
+
+.container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Style for the logo */
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+    text-decoration: none;
+    color: #fff;
+}
+
+/* Style for the navigation links */
+.nav-links {
+    list-style: none;
+}
+
+.nav-links li {
+    display: inline;
+    margin-right: 20px;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: #fff;
+    font-weight: bold;
+    transition: color 0.3s;
+}
+
+.nav-links a:hover {
+    color: #ffed00; /* Warna kuning saat dihover */
+}
+
+/* Style untuk menu dropdown */
+.dropdown-menu {
+    background-color: #007bff;
+    color: #fff;
+}
+
+.dropdown-item {
+    color: #fff;
+}
+
+.dropdown-item:hover {
+    background-color: #0056b3; /* Warna biru saat dihover */
+    color: #fff;
+}
+
+    </style>
 <body>
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+        <nav class="navbar">
             <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', 'Laravel') }}
-                </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav me-auto">
-
-                    </ul>
+                <a href="#" class="logo">Brand</a>
+                <ul class="nav-links">
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">About</a></li>
+                    <li><a href="#">Services</a></li>
+                    <li><a href="#">Portfolio</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </div>
+        </nav>
 
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ms-auto">
@@ -54,17 +118,7 @@
                                     {{ Auth::user()->name }}
                                 </a>
 
-                                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
-                                       onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
-                                    </a>
-
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                        @csrf
-                                    </form>
-                                </div>
+                                
                             </li>
                         @endguest
                     </ul>
