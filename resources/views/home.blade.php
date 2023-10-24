@@ -1,6 +1,6 @@
-@extends('layouts.app')
+@extends('layouts.navbar')
 
-@section('content')
+@section('navbar')
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
@@ -15,7 +15,7 @@
                     @endif
 
                     {{ __('You are logged in!') }}
-                   
+
                 </div>
             </div>
         </div>

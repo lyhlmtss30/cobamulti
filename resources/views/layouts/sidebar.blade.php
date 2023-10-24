@@ -64,12 +64,7 @@
 
     <a href="#"><i class="fas fa-user"></i> Profil</a>
 
-    <a href="{{ route('bahasa_indo') }}"
-    class="{{ request()->is('bahasa_indo') ? 'active' : '' }}">
-        <i class="fas fa-language "></i> Bahasa Indonesia
-    </a>
-
-    <a href="{{ route('guru') }}"
+    <a href="{{ route('guru.index') }}"
     class="{{ request()->is('guru') ? 'active' : '' }}">
         <i class="fas fa-language "></i> data guru
     </a>
@@ -78,13 +73,19 @@
     class="{{ request()->is('mapel') ? 'active' : '' }}">
     <i class="fas fa-language"></i> Data Mapel</a>
 
-    <a href="#"><i class="fas fa-language"></i> Bahasa Jepang</a>
+    <a href="{{ route('mapelIndonesia') }}"
+    class="{{ request()->is('mapelIndonesia') ? 'active' : '' }}">
+    <i class="fas fa-language"></i> Mapel Indonesia</a>
 
-    <a href="#"><i class="fas fa-language"></i> Bahasa Inggris</a>
+    <a href="{{ route('mapelAgama') }}"
+    class="{{ request()->is('mapelAgama') ? 'active' : '' }}">
+    <i class="fas fa-language"></i> Mapel Agama</a>
 
-    <a href="#"><i class="fas fa-language"></i> Bahasa Jawa</a>
+    <a href="{{ route('mapelMatematika') }}"
+    class="{{ request()->is('mapelMatematika') ? 'active' : '' }}">
+    <i class="fas fa-language"></i> Mapel matematika</a>
 
-    <a href="#"><i class="fas fa-cog"></i> Pengaturan</a>
+
 
     <button class="logout-button" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
         <i class="fas fa-sign-out-alt"></i> Logout

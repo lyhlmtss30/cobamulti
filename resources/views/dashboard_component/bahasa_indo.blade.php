@@ -17,7 +17,7 @@
 /* Gaya dasar */
 body {
     font-family: Arial, sans-serif;
-    background-color: #f2f2f2;
+    background-color: #d2cddf;
 }
 
 /* Gaya untuk kontainer tabel */
@@ -80,15 +80,36 @@ body {
 
 .add-button:hover {
     background-color: #0056b3;
+    transform: rotate(45deg) scale(1.2);
 }
 
+.animated-button {
+  position: relative;
+  overflow: hidden;
+}
 
+.add-animated-button i {
+  display: inline-block;
+  transition: transform 0.2s;
+}
+
+.add-animated-button:hover i {
+
+
+img{
+    width: 70px;
+
+}
 </style>
 
 <body>
 
-    <div class="table-container">
-        <button type="button" class="btn btn-primary"  data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="fa fa-plus"></i> Tambah</button>
+    <div class="table-container ">
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            <i class="fa fa-plus"></i> Tambah
+        </button>
+        <br><br>
+
         <table class="custom-table">
             <thead>
                 <tr>
@@ -97,47 +118,100 @@ body {
                     <th>Nama Guru</th>
                     <th>Keterangan</th>
                     <th>Bukti</th>
-                    <th>Aksi</th>
+                    <th>status</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
-                    <td>John Doe</td>
-                    <td>Bahasa Indo</td>
-                    <td>Tuti hastuti</td>
-                    <td>saya sudah mengumpulkan</td>
+                    @foreach ($tugas as $t)
+                    <tr>
+
+                        <td>{{ $t->nama_siswa }}</td>
+                        <td>{{ $t->data_mapel->nama_mapel }}</td>
+                        <td>{{ $t->nama_guru->nama }}</td>
+                        <td>{{ $t->keterangan }}</td>
+                        <td>
+                            <img src="{{ asset('storage/' . $t->bukti) }}" alt="Gambar" class="img-fluid">
+                        </td>
+                        <td>{{ $t->status }}</td>
+
+
+                    </tr>
+                    @endforeach
 
                 </tr>
 
             </tbody>
         </table>
-        <button type="button" class="btn btn-primary">
-            Launch demo modal
-          </button>
+        <div class="d-flex justify-content-center">
+            {{ $tugas->links('pagination::bootstrap-5') }} <!-- Menggunakan Bootstrap 5 pagination view -->
+        </div>
     </div>
 
-    <!-- Button trigger modal -->
+   <!-- Button trigger modal -->
 
-  <!-- Modal -->
-  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+
+  <!-- ... Bagian lain dari kode modal ... -->
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          ...
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Save changes</button>
-        </div>
-      </div>
-    </div>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Tambah Data Tugas</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form method="POST" action="{{ Route('tugas.store') }}" enctype="multipart/form-data">
+                    @csrf
+                    <div class="mb-3">
+                        <label for="nama">Nama</label>
+                        <input type="text" class="form-control" id="nama_siswa" name="nama_siswa" required>
+                    </div>
 
-    
-  </div>
+                    <div class="mb-3">
+                        <label for="mata_pelajaran">Nama mapel</label>
+                        <select class="form-select" id="mata_pelajaran" name="mata_pelajaran" required>
+                            <option value="">Pilih Mata Pelajaran</option>
+                            @foreach ($nama_mapel as $mapel)
+                                <option value="{{ $mapel->id }}">{{ $mapel->nama_mapel }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="nama_guru">Nama Guru</label>
+                        <select class="form-select" id="nama_guru" name="guru_pengajar" required>
+                            <option value="">Pilih Guru</option>
+                            @foreach ($nama_guru as $guru)
+                                <option value="{{ $guru->id }}">{{ $guru->nama }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+
+
+                    <div class="mb-3">
+                        <label for="keterangan">Keterangan</label>
+                        <input type="text" class="form-control" id="keterangan" name="keterangan" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="bukti">Bukti</label>
+                        <input type="file" class="form-control" id="bukti" name="bukti" required>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Simpan</button>
+                </div>
+            </form>
+
+
+        </div>
+    </div>
+</div>
+
+<!-- ... Bagian lain dari kode modal ... -->
+
+
 </body>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 </html>

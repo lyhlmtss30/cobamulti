@@ -99,7 +99,7 @@ body {
         }
 
         .btn-dark:hover {
-            background-color: #ffffff;
+            background-color: #ccc5c5;
             /* Warna latar belakang saat dihover */
             color: #343a40;
             /* Warna teks saat dihover */
@@ -136,58 +136,110 @@ body {
 
 <body>
 
-    <div class="table-container">
+    <div class="table-container" style="width: 200%; height: 100%">
         <button type="button" class="btn btn-primary"  data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="fa fa-plus"></i> Tambah</button>
+        <br><br>
         <table class="custom-table">
             <thead>
                 <tr>
                     <th>No</th>
                     <th>Nama Guru</th>
-                    <th>foto</th>
+                    <th>Mata Pelajaran</th>
 
                     <th>Aksi</th>
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>1</td>
-                    <td>Tuti hastuti</td>
-                    <td>gambar</td>
-                    <td>
-                        <div class="btn-group d-flex align-items-center" role="group">
-                            <form class="d-flex" action="" method="post" style="width: 125px;">
-                                @csrf
-                                <a href="" class="btn btn-dark btn-sm me-2"><i class="fas fa-pencil-alt" style="margin-top: 8px"></i></a>
-                                @method('DELETE')
-                                <button class="btn btn-danger btn-sm" onclick="confirmDelete(event)"><i class="fas fa-trash-alt"></i></button>
-                            </form>
-                        </div>
-                    </td>
-                </tr>
-
-            </tbody>
-        </table>
-    </div>
+                @foreach ($guru as $item)
+                        <tr>
+                            <td>{{ $loop->iteration }}</td>
+                            <td>{{ $item->nama }}</td>
+                            <td>{{ $item->mata_pelajaran }}</td>
+                            <td>
+                                <div class="btn-group d-flex align-items-center" role="group">
+                                    <!-- Tombol Edit -->
+                                    <a href="#" class="btn btn-dark btn-sm me-2" data-bs-toggle="modal" data-bs-target="#editModal{{ $item->id }}">
+                                        <i class="fas fa-pencil-alt" style="margin-top: 8px"></i> Edit
+                                    </a>
+                                    <!-- Tombol Hapus -->
+                                    <form class="d-flex" action="{{ route('guru.destroy', $item->id) }}" method="POST" style="width: 125px">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button class="btn btn-danger btn-sm" onclick="confirmDelete(event)">
+                                            <i class="fas fa-trash-alt"></i> Hapus
+                                        </button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
 
     <!-- Button trigger modal -->
 
   <!-- Modal -->
   <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Tambah Data Guru</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form method="POST" action="{{ route('guru.store') }}">
+                    @csrf
+                    <div class="mb-3">
+                        <label for="nama" class="form-label">Nama Guru</label>
+                        <input type="text" class="form-control" id="nama" name="nama" >
+                    </div>
+                    <div class="mb-3">
+                        <label for="mata_pelajaran" class="form-label">Mata Pelajaran yang Diajarkan</label>
+                        <input type="text" class="form-control" id="mata_pelajaran" name="mata_pelajaran" >
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Simpan</button>
+                </div>
+            </form>
         </div>
-        <div class="m odal-body">
-          ...
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Save changes</button>
-        </div>
-      </div>
     </div>
+</div>
+
+
+<!-- Modal Edit Guru -->
+@foreach ($guru as $item)
+<div class="modal fade" id="editModal{{ $item->id }}" tabindex="-1" aria-labelledby="editModalLabel{{ $item->id }}" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editModalLabel{{ $item->id }}">Edit Data Guru</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form method="POST" action="{{ route('guru.update', $item->id) }}">
+                    @csrf
+                    @method('PUT')
+                    <div class="mb-3">
+                        <label for="edit_nama{{ $item->id }}" class="form-label">Nama Guru</label>
+                        <input type="text" class="form-control" id="edit_nama{{ $item->id }}" name="nama" value="{{ $item->nama }}" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="edit_mata_pelajaran{{ $item->id }}" class="form-label">Mata Pelajaran yang Diajarkan</label>
+                        <input type="text" class="form-control" id="edit_mata_pelajaran{{ $item->id }}" name="mata_pelajaran" value="{{ $item->mata_pelajaran }}" required>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+@endforeach
 
 
   </div>

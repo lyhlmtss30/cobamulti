@@ -26,25 +26,37 @@
 
                             <div class="form-group">
                                 <label for="name"><i class="zmdi zmdi-account material-icons-name"></i></label>
-                                <input type="text" name="name" id="name" placeholder="Your Name" />
+                                <input type="text" name="name" id="name" class="@error('name') is-invalid @enderror" placeholder="Your Name" />
+                                @error('name')
+                                <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
+                                @enderror
                             </div>
 
                             <div class="form-group">
                                 <label for="email"><i class="zmdi zmdi-email"></i></label>
-                                <input type="email" name="email" id="email" placeholder="Your Email" />
+                                <input type="email" name="email" id="email" class="@error('email') is-invalid @enderror" placeholder="Your Email"/>
+                                @error('email')
+                                <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
+                                @enderror
                             </div>
 
                             <div class="form-group">
                                 <label for="password"><i class="zmdi zmdi-lock"></i></label>
-                                <input type="password" name="password" id="password" placeholder="Password" />
+                                <input type="password" name="password" id="password" class="@error('password') is-invalid @enderror" placeholder="Password" />
+                                @error('password')
+                                <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
+                                @enderror
                             </div>
 
                             <div class="form-group">
                                 <label for="password_confirmation"><i class="zmdi zmdi-lock-outline"></i></label>
                                 <input type="password" name="password_confirmation" id="password_confirmation"
-                                    placeholder="Repeat your password" />
+                                class="@error('password_confirmation') is-invalid @enderror"   placeholder="Repeat your password" />
+                                    @error('password_cofirmation')
+                                    <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
+                                    @enderror
                             </div>
-                           
+
                             <div class="form-group form-button">
                                 <button type="submit" class="form-submit">Register</button>
                             </div>

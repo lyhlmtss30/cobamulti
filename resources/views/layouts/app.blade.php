@@ -84,19 +84,7 @@ body, ul {
     </style>
 <body>
     <div id="app">
-        <nav class="navbar">
-            <div class="container">
-                <a href="#" class="logo">Brand</a>
-                <ul class="nav-links">
-                    <li><a href="#">Home</a></li>
-                    <li><a href="#">About</a></li>
-                    <li><a href="#">Services</a></li>
-                    <li><a href="#">Portfolio</a></li>
-                    <li><a href="#">Contact</a></li>
-                </ul>
-            </div>
-        </nav>
-
+    
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ms-auto">
                         <!-- Authentication Links -->
@@ -118,7 +106,7 @@ body, ul {
                                     {{ Auth::user()->name }}
                                 </a>
 
-                                
+
                             </li>
                         @endguest
                     </ul>

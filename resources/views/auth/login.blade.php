@@ -31,11 +31,27 @@
                         @csrf
                         <div class="form-group">
                             <label for="email"><i class="zmdi zmdi-account material-icons-name"></i></label>
-                            <input type="email" name="email" id="email" placeholder="Your Email"/>
+                            <input type="email" name="email" id="email" class="@error('email') is-invalid @enderror" placeholder="Your Email"/>
+                            @error('email')
+                            <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
+                            @enderror
                         </div>
+                        @if ($message = Session::get('succes'))
+                        <div class="alert alert-success" role="alert">
+                            {{ $message }}
+                        </div>
+                        @endif
+                        @if ($message = Session::get('error'))
+                        <div class="alert alert-danger" role="alert">
+                            {{ $message }}
+                        </div>
+                        @endif
                         <div class="form-group">
                             <label for="your_pass"><i class="zmdi zmdi-lock"></i></label>
-                            <input type="password" name="password" id="your_pass" placeholder="Password"/>
+                            <input type="password" name="password" id="password" class="@error('password') is-invalid @enderror" placeholder="Your password"/>
+                            @error('password')
+                            <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
+                            @enderror
                         </div>
                         <div class="form-group">
                             <input type="checkbox" name="remember" id="remember-me" class="agree-term" />

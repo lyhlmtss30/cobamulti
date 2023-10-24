@@ -1,59 +1,96 @@
 @extends('layouts.navbar')
 
-@section('navbar')
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Bootstrap demo</title>
-            <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-        <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
-
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-        <link rel="stylesheet" href="{{ asset('sidebar') }}/css/style.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-  </head>
+@section('content')
 <style>
-    /* Tambahkan latar belakang gambar ke seluruh halaman */
-body {
-    background-image: url('path-to-your-image.jpg');
-    background-size: cover; /* Membuat gambar mengisi seluruh latar belakang */
-    background-position: center center; /* Menyimpan gambar di tengah latar belakang */
-    background-attachment: fixed; /* Tetapkan gambar latar belakang */
-    background-repeat: no-repeat; /* Hindari pengulangan gambar latar belakang */
-}
+    /* Gaya dasar */
+    html {
+        background-color: #c1c7d1;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+        height: 100%;
+    }
 
+    body {
+        font-family: "Oswald", sans-serif;
+        -webkit-font-smoothing: antialiased;
+        font-smoothing: antialiased;
+    }
+
+    h1 {
+        line-height: .95;
+        color: #3629eb;
+        font-weight: 900;
+        font-size: 5rem; /* Mengubah ukuran font ke 5rem (atau ukuran yang Anda inginkan) */
+        text-transform: uppercase;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        pointer-events: none;
+    }
+    h4 {
+        line-height: .95;
+        color: #242246;
+        font-weight: 900;
+        font-size: 2rem; /* Mengubah ukuran font ke 5rem (atau ukuran yang Anda inginkan) */
+        text-transform: uppercase;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        pointer-events: none;
+    }
+
+    .center {
+        position: absolute;
+        margin: auto;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        width: 50%; /* Mengubah width ke 50% (atau ukuran yang Anda inginkan) */
+        height: 50%;
+    }
+
+    .btn {
+        margin: 0 auto;
+        width: 160px;
+        height: 60px;
+        padding: 6px 0 0 3px;
+        border: 2px solid #66fcf1;
+        border-radius: 2px;
+        background: none;
+        font-size: 16px;
+        line-height: 54px;
+        color: #fff;
+        letter-spacing: .25em;
+        text-decoration: none;
+        font-weight: 600;
+        text-transform: uppercase;
+        vertical-align: middle;
+        text-align: center;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        -webkit-transition: background .4s, color .4s;
+        transition: background .4s, color .4s;
+        cursor: pointer;
+    }
+
+    .btn:hover {
+        background: #66fcf1;
+        color: #10151B;
+    }
 </style>
-  <body>
-    <!DOCTYPE html>
-    <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="styles.css">
-        <title>Navbar Menarik</title>
-    </head>
-    <body>
-        <nav class="navbar">
-            <div class="container">
-                <a href="#" class="logo">Brand</a>
-                <ul class="nav-links">
-                    <li><a href="#">Home</a></li>
-                    <li><a href="#">About</a></li>
-                    <li><a href="#">Services</a></li>
-                    <li><a href="#">Portfolio</a></li>
-                    <li><a href="#">Contact</a></li>
-                </ul>
-            </div>
-        </nav>
-    </body>
-    </html>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
-  </body>
-</html>
-
+<body>
+    <div class="table-container" style="width: 100%; height: 100%">
+        <div class="center">
+            <h1>Selamat datang!</h1>
+            <h4>Kumpulkan tugasmu sekarang juga!</h4>
+        </div>
+    </div>
+</body>
 @endsection

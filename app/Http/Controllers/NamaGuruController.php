@@ -12,8 +12,10 @@ class NamaGuruController extends Controller
      */
     public function index()
     {
-        return view('data_guru.guru');
+        $guru = nama_guru::all(); // Ambil semua data guru dari basis data
+        return view('data_guru.guru', compact('guru')); // Kirim data guru ke tampilan
     }
+
 
     /**
      * Show the form for creating a new resource.
@@ -23,13 +25,31 @@ class NamaGuruController extends Controller
         //
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+    protected function validateLogin(Request $request)
     {
-        //
+        $request->validate([
+            'nama_guru' => 'required|string', // Menambahkan validasi bahwa 'email' harus berupa alamat email.
+            'mata_pelajaran_yang_diajarkan' => 'required|string',
+        ], [
+             'nama_guru.required' => 'Nama guru wajib diisi',
+             'mata_pelajaran_yang_diajarkan' => 'Mapel wajib Diisi '
+        ]);
     }
+
+    public function store(Request $request)
+{
+    $request->validate([
+        'nama' => 'required',
+        'mata_pelajaran' => 'required',
+    ]);
+
+    nama_guru::create([
+        'nama' => $request->input('nama'),
+        'mata_pelajaran' => $request->input('mata_pelajaran'),
+    ]);
+
+    return redirect()->route('guru.index')->with('success', 'Data guru telah ditambahkan.');
+}
 
     /**
      * Display the specified resource.
@@ -44,15 +64,26 @@ class NamaGuruController extends Controller
      */
     public function edit(nama_guru $nama_guru)
     {
-        //
+        return view('data_guru.edit', compact('nama_guru'));
     }
+
 
     /**
      * Update the specified resource in storage.
      */
     public function update(Request $request, nama_guru $nama_guru)
     {
-        //
+        $request->validate([
+            'nama' => 'required',
+            'mata_pelajaran' => 'required',
+        ]);
+
+        $nama_guru->update([
+            'nama' => $request->input('nama'),
+            'mata_pelajaran' => $request->input('mata_pelajaran'),
+        ]);
+
+        return redirect()->route('guru.index')->with('success', 'Data guru telah diperbarui.');
     }
 
     /**
@@ -60,6 +91,10 @@ class NamaGuruController extends Controller
      */
     public function destroy(nama_guru $nama_guru)
     {
-        //
+        $nama_guru->delete(); // Menghapus data guru berdasarkan ID atau objek model.
+
+        return redirect()->route('guru.index')->with('success', 'Data guru telah dihapus.');
     }
+
+
 }

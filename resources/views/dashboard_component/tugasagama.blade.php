@@ -138,43 +138,36 @@
     <body>
 
         <div class="table-container" style="width: 200%; height: 100%">
-            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"><i
-                    class="fa fa-plus"></i> Tambah</button>
-            <table class="custom-table">
-                <thead>
-                    <tr>
-                        <th>No</th>
-                        <th>Nama mapel</th>
-                        <th>Aksi</th>
-                </thead>
-                </thead>
-                <tbody>
-                    @foreach ($data as $mapel)
-                        <tr>
-                            <td>{{ $loop->iteration }}</td>
-                            <td>{{ $mapel->nama_mapel }}</td>
-                            <td>
-                                <div class="btn-group d-flex align-items-center" role="group">
-                                    <!-- Tombol Hapus -->
-                                    <form class="d-flex" action="{{ route('mapel.destroy', $mapel->id) }}" method="POST"
-                                        style="width: 125px">
-                                        <!-- Tombol Edit -->
-                                        <a href="#" class="btn btn-dark btn-sm me-2" data-bs-toggle="modal"
-                                            data-bs-target="#editModal{{ $mapel->id }}">
-                                            <i class="fas fa-pencil-alt" style="margin-top: 8px"></i> Edit
-                                        </a>
-                                        @csrf
-                                        @method('DELETE')
-                                        <button class="btn btn-danger btn-sm" onclick="confirmDelete(event)">
-                                            <i class="fas fa-trash-alt"></i> Hapus
-                                        </button>
-                                    </form>
+            <h3>Data Pengumpulan Tugas Agama</h3>
+                    <table class="custom-table">
+                        <thead>
+                            <tr>
+                                <th>Nama</th>
+                                <th>Mapel</th>
+                                <th>Nama Guru</th>
+                                <th>Keterangan</th>
+                                <th>Bukti</th>
+                                <th>status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                @foreach ($tugas as $t)
+                                <tr>
 
-                                </div>
-                            </td>
-                        </tr>
-                    @endforeach
-                </tbody>
+                                    <td>{{ $t->nama_siswa }}</td>
+                                    <td>{{ $t->data_mapel->nama_mapel }}</td>
+                                    <td>{{ $t->nama_guru->nama }}</td>
+                                    <td>{{ $t->keterangan }}</td>
+                                    <td>
+                                        <img src="{{ asset('storage/' . $t->bukti) }}" alt="Gambar" class="img-fluid">
+                                    </td>
+                                    <td>{{ $t->status }}</td>
+
+
+                                </tr>
+                                @endforeach
+                            </tbody>
             </table>
         </div>
 
@@ -182,7 +175,7 @@
         <!-- Button trigger modal -->
 
         <!-- Modal -->
-        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        {{-- <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -204,11 +197,11 @@
                     </form>
                 </div>
             </div>
-        </div>
+        </div> --}}
 
 
         <<!-- Modal Edit Mapel -->
-            @foreach ($data as $mapel)
+            {{-- @foreach ($data as $mapel)
                 <div class="modal fade" id="editModal{{ $mapel->id }}" tabindex="-1"
                     aria-labelledby="editModalLabel{{ $mapel->id }}" aria-hidden="true">
                     <div class="modal-dialog">
@@ -237,7 +230,7 @@
                         </div>
                     </div>
                 </div>
-            @endforeach
+            @endforeach --}}
 
 
 

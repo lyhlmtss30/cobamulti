@@ -11,9 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('data_mapels', function (Blueprint $table) {
+        Schema::create('data_mapel', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
+            $table->string('nama_mapel');
+          $table->timestamps();
         });
     }
 
@@ -22,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('data_mapels');
+        Schema::dropIfExists('data_mapel');
     }
 };

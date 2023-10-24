@@ -17,10 +17,20 @@
 
     /* Style for the navbar */
     .navbar {
-        background-color: #333;
-        color: #fff;
-        padding: 10px 0;
-    }
+    position: fixed; /* Membuat navbar tetap di posisi atas */
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: #27569c;
+    color: #fff;
+    padding: 10px 0;
+    z-index: 1000; /* Menjamin navbar tetap di atas elemen lain */
+}
+
+/* Gaya untuk konten */
+main {
+    padding-top: 80px; /* Sesuaikan dengan tinggi navbar */
+}
 
     .container {
         display: flex;
@@ -39,10 +49,10 @@
     /* Style for the navigation links */
     .nav-links {
         list-style: none;
+        display: flex; /* Menggunakan Flexbox */
     }
 
     .nav-links li {
-        display: inline;
         margin-right: 20px;
     }
 
@@ -56,34 +66,30 @@
     .nav-links a:hover {
         color: #007bff;
     }
+
 </style>
 <body>
     <nav class="navbar">
         <div class="container">
-            <a href="#" class="logo">Brand</a>
+            <a href="#" class="logo">classtech</a>
             <ul class="nav-links">
-                <li><a href="#">Home</a></li>
-                <li><a href="{{ route('bahasa_indo') }}">Tugas</a></li>
-                <li><a href="#">Services</a></li>
-                <li><a href="#">Portfolio</a></li>
-                <li><a href="#">Contact</a></li>
-                @auth
-                    <li>
-                        <form action="{{ route('logout') }}" method="POST">
-                            @csrf
-                            <button type="submit" class="btn btn-link text-white">
-                                <i class="fas fa-sign-out-alt"></i> Logout
-                            </button>
-                        </form>
-                    </li>
-                @endauth
+                <li><a href="{{ route('tugas.index') }}">Tugas</a></li>
+                <li><a href="#">Ulasan</a></li>
             </ul>
+            @auth
+            <form action="{{ route('logout') }}" method="POST">
+                @csrf
+                <button type="submit" class="btn btn-link text-white">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </button>
+            </form>
+            @endauth
         </div>
     </nav>
     <main>
-        <div class="d-flex py-5">
+
             @yield('content')
-        </div>
+
     </main>
 </body>
 </html>
