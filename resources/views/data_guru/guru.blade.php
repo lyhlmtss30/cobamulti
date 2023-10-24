@@ -225,6 +225,7 @@ body {
                     <div class="mb-3">
                         <label for="edit_nama{{ $item->id }}" class="form-label">Nama Guru</label>
                         <input type="text" class="form-control" id="edit_nama{{ $item->id }}" name="nama" value="{{ $item->nama }}" required>
+
                     </div>
                     <div class="mb-3">
                         <label for="edit_mata_pelajaran{{ $item->id }}" class="form-label">Mata Pelajaran yang Diajarkan</label>
@@ -244,7 +245,22 @@ body {
 
   </div>
 </body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+@if ($errors->any())
+<script>
+    $(document).ready(function() {
+        @foreach($errors->all() as $error)
+        toastr.error('{{ $error }}', 'Error', {
+            closeButton: true, // Menambahkan tombol hapus
+            timeOut: 0
+        });
+        @endforeach
+    });
+</script>
+@endif
 </html>
 
 @endsection

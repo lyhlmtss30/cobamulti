@@ -165,12 +165,12 @@ img{
                     @csrf
                     <div class="mb-3">
                         <label for="nama">Nama</label>
-                        <input type="text" class="form-control" id="nama_siswa" name="nama_siswa" required>
+                        <input type="text" class="form-control" id="nama_siswa" name="nama_siswa" >
                     </div>
 
                     <div class="mb-3">
                         <label for="mata_pelajaran">Nama mapel</label>
-                        <select class="form-select" id="mata_pelajaran" name="mata_pelajaran" required>
+                        <select class="form-select" id="mata_pelajaran" name="mata_pelajaran" >
                             <option value="">Pilih Mata Pelajaran</option>
                             @foreach ($nama_mapel as $mapel)
                                 <option value="{{ $mapel->id }}">{{ $mapel->nama_mapel }}</option>
@@ -180,7 +180,7 @@ img{
 
                     <div class="mb-3">
                         <label for="nama_guru">Nama Guru</label>
-                        <select class="form-select" id="nama_guru" name="guru_pengajar" required>
+                        <select class="form-select" id="nama_guru" name="guru_pengajar" >
                             <option value="">Pilih Guru</option>
                             @foreach ($nama_guru as $guru)
                                 <option value="{{ $guru->id }}">{{ $guru->nama }}</option>
@@ -191,11 +191,11 @@ img{
 
                     <div class="mb-3">
                         <label for="keterangan">Keterangan</label>
-                        <input type="text" class="form-control" id="keterangan" name="keterangan" required>
+                        <input type="text" class="form-control" id="keterangan" name="keterangan" >
                     </div>
                     <div class="mb-3">
                         <label for="bukti">Bukti</label>
-                        <input type="file" class="form-control" id="bukti" name="bukti" required>
+                        <input type="file" class="form-control" id="bukti" name="bukti" >
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -213,7 +213,22 @@ img{
 
 
 </body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+@if ($errors->any())
+<script>
+    $(document).ready(function() {
+        @foreach($errors->all() as $error)
+        toastr.error('{{ $error }}', 'Error', {
+            closeButton: true, // Menambahkan tombol hapus
+            timeOut: 0
+        });
+        @endforeach
+    });
+</script>
+@endif
 </html>
 
 @endsection

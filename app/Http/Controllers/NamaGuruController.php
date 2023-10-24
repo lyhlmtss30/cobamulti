@@ -25,22 +25,16 @@ class NamaGuruController extends Controller
         //
     }
 
-    protected function validateLogin(Request $request)
-    {
-        $request->validate([
-            'nama_guru' => 'required|string', // Menambahkan validasi bahwa 'email' harus berupa alamat email.
-            'mata_pelajaran_yang_diajarkan' => 'required|string',
-        ], [
-             'nama_guru.required' => 'Nama guru wajib diisi',
-             'mata_pelajaran_yang_diajarkan' => 'Mapel wajib Diisi '
-        ]);
-    }
+
 
     public function store(Request $request)
 {
     $request->validate([
         'nama' => 'required',
         'mata_pelajaran' => 'required',
+    ],[
+        'nama.required' => 'Nama wajib diisi',
+        'mata_pelajaran.required' => 'Mata Pelajaran wajib diisi'
     ]);
 
     nama_guru::create([

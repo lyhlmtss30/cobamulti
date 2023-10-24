@@ -60,6 +60,8 @@ class DataMapelController extends Controller
         $request->validate([
             'nama_mapel' => 'required',
 
+        ],[
+            'nama_mapel.required' => 'Nama Mapel Wajib Diisi'
         ]);
 
         data_mapel::create([

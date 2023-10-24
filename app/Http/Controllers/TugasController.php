@@ -45,6 +45,12 @@ class TugasController extends Controller
         'guru_pengajar' => 'required',
         'keterangan' => 'required',
         'bukti' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+    ],[
+        'nama_siswa.required' => 'Nama Siswa wajib diisi',
+        'mata_pelajaran.required' => 'Mata pelajaran wajib diisi',
+        'guru_pengajar.required' => 'Guru Pengajar wajib diisi',
+        'keterangan.required' => 'Keterangan wajib diisi',
+        'bukti.required' => 'bukti wajib diisi'
     ]);
 
     // Inisialisasi $buktiPath dengan null

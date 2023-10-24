@@ -194,7 +194,7 @@
                             @csrf
                             <div class="mb-3">
                                 <label for="nama_mapel" class="form-label">Nama Mapel</label>
-                                <input type="text" class="form-control" id="nama_mapel" name="nama_mapel" required>
+                                <input type="text" class="form-control" id="nama_mapel" name="nama_mapel" >
                             </div>
                     </div>
                     <div class="modal-footer">
@@ -223,10 +223,9 @@
                                     @csrf
                                     @method('PUT')
                                     <div class="mb-3">
-                                        <label for="edit_nama_mapel{{ $mapel->id }}" class="form-label">Nama
-                                            Mapel</label>
+                                        <label for="edit_nama_mapel{{ $mapel->id }}" class="form-label">Nama Mapel</label>
                                         <input type="text" class="form-control" id="edit_nama_mapel{{ $mapel->id }}"
-                                            name="nama_mapel" value="{{ $mapel->nama_mapel }}" required>
+                                            name="nama_mapel" value="{{ $mapel->nama_mapel }}">
                                     </div>
                             </div>
                             <div class="modal-footer">
@@ -243,9 +242,22 @@
 
             </div>
     </body>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
-    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+@if ($errors->any())
+<script>
+    $(document).ready(function() {
+        @foreach($errors->all() as $error)
+        toastr.error('{{ $error }}', 'Error', {
+            closeButton: true, // Menambahkan tombol hapus
+            timeOut: 0
+        });
+        @endforeach
+    });
+</script>
+@endif
 
     </html>
 @endsection
