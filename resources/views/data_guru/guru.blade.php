@@ -27,14 +27,19 @@ body {
 }
 
 /* Gaya untuk kontainer tabel */
+
+   /* Gaya untuk kontainer tabel */
 .table-container {
-    max-width: 800px;
-    margin: 0 auto;
+    width: 200%; /* Mengatur lebar penuh */
     background-color: #fff;
-    padding: 20px;
+    padding: 30px;
+    margin-left: 30px;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
+/* ox-shadow: 0 0 10px rgba(0, 0, 0, 0.1); */
+
+
 
 /* Gaya untuk tabel */
 .custom-table {
@@ -131,12 +136,30 @@ body {
             /* Bayangan saat dihover */
         }
 
+        /* Gaya untuk teks yang di-highlight */
+.highlight {
+    color: #49256b; /* Warna teks yang menonjol */
+    font-weight: bold;
+    font-size: 38px; /* Ukuran huruf yang lebih besar */
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+
+}
+/* Gaya untuk tombol Edit yang diperkecil */
+.small-edit-button {
+    padding: 5px 10px; /* Sesuaikan ukuran padding sesuai preferensi Anda */
+    font-size: 14px; /* Sesuaikan ukuran font sesuai preferensi Anda */
+}
+
+
 
 </style>
 
 <body>
 
-    <div class="table-container" style="width: 200%; height: 100%">
+
+
+    <div class="table-container">
+        <h3><span class="highlight">Tambahkan Nama Anda Jika Belum Terdaftar!</span></h3>
         <button type="button" class="btn btn-primary"  data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="fa fa-plus"></i> Tambah</button>
         <br><br>
         <table class="custom-table">
@@ -158,17 +181,38 @@ body {
                             <td>
                                 <div class="btn-group d-flex align-items-center" role="group">
                                     <!-- Tombol Edit -->
-                                    <a href="#" class="btn btn-dark btn-sm me-2" data-bs-toggle="modal" data-bs-target="#editModal{{ $item->id }}">
-                                        <i class="fas fa-pencil-alt" style="margin-top: 8px"></i> Edit
+                                    <a href="#" class="btn btn-dark btn-sm me-4 small-edit-button" data-bs-toggle="modal" data-bs-target="#editModal{{ $item->id }}">
+                                        <i class="fas fa-pencil-alt" style="margin-top: 2px"></i> Edit
                                     </a>
                                     <!-- Tombol Hapus -->
-                                    <form class="d-flex" action="{{ route('guru.destroy', $item->id) }}" method="POST" style="width: 125px">
+                                    <form class="d-flex" action="{{ route('guru.destroy', $item->id) }}" method="POST" id="delete-form" style="width: 125px">
                                         @csrf
                                         @method('DELETE')
-                                        <button class="btn btn-danger btn-sm" onclick="confirmDelete(event)">
-                                            <i class="fas fa-trash-alt"></i> Hapus
+                                        <button type="submit" class="btn btn-danger btn-sm" onclick="confirmDelete(event)">
+                                            <i class="fas fa-trash-alt" ></i> Hapus
                                         </button>
                                     </form>
+                                    {{-- swal confirm --}}
+                            <script>
+                                function confirmDelete(event) {
+                                    event.preventDefault(); // Mencegah default submit form
+
+                                    Swal.fire({
+                                        title: 'Apakah Anda yakin?',
+                                        text: 'Anda akan menghapus data ini.',
+                                        icon: 'warning',
+                                        showCancelButton: true,
+                                        confirmButtonText: 'Ya, Hapus',
+                                        cancelButtonText: 'Batal'
+                                    }).then((result) => {
+                                        if (result.isConfirmed) {
+                                            // Jika pengguna mengonfirmasi, lanjutkan dengan penghapusan
+                                            document.getElementById('delete-form').submit();
+                                        }
+                                    });
+                                }
+                            </script>
+                            {{-- swal confirm --}}
                                 </div>
                             </td>
                         </tr>
@@ -176,6 +220,8 @@ body {
                 </tbody>
             </table>
         </div>
+
+
 
     <!-- Button trigger modal -->
 

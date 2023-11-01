@@ -29,13 +29,14 @@
 
         /* Gaya untuk kontainer tabel */
         .table-container {
-            max-width: 800px;
-            margin: 0 auto;
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
+            width: 200%; /* Mengatur lebar penuh */
+    background-color: #fff;
+    padding: 30px;
+    margin-left: 33px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
 
         /* Gaya untuk tabel */
         .custom-table {
@@ -133,13 +134,22 @@
             box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.5);
             /* Bayangan saat dihover */
         }
+        .highlight {
+    color: #49256b; /* Warna teks yang menonjol */
+    font-weight: bold;
+    font-size: 38px; /* Ukuran huruf yang lebih besar */
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+
+}
     </style>
 
     <body>
 
         <div class="table-container" style="width: 200%; height: 100%">
+            <h3><span class="highlight">Daftar Mapel</span></h3>
             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"><i
                     class="fa fa-plus"></i> Tambah</button>
+                    <br><br>
             <table class="custom-table">
                 <thead>
                     <tr>
@@ -156,7 +166,7 @@
                             <td>
                                 <div class="btn-group d-flex align-items-center" role="group">
                                     <!-- Tombol Hapus -->
-                                    <form class="d-flex" action="{{ route('mapel.destroy', $mapel->id) }}" method="POST"
+                                    <form class="d-flex" action="{{ route('mapel.destroy', $mapel->id) }}" method="POST" id="delete-form"
                                         style="width: 125px">
                                         <!-- Tombol Edit -->
                                         <a href="#" class="btn btn-dark btn-sm me-2" data-bs-toggle="modal"
@@ -169,7 +179,27 @@
                                             <i class="fas fa-trash-alt"></i> Hapus
                                         </button>
                                     </form>
+                                    {{-- swal confirm --}}
+                            <script>
+                                function confirmDelete(event) {
+                                    event.preventDefault(); // Mencegah default submit form
 
+                                    Swal.fire({
+                                        title: 'Apakah Anda yakin?',
+                                        text: 'Anda akan menghapus data ini.',
+                                        icon: 'warning',
+                                        showCancelButton: true,
+                                        confirmButtonText: 'Ya, Hapus',
+                                        cancelButtonText: 'Batal'
+                                    }).then((result) => {
+                                        if (result.isConfirmed) {
+                                            // Jika pengguna mengonfirmasi, lanjutkan dengan penghapusan
+                                            document.getElementById('delete-form').submit();
+                                        }
+                                    });
+                                }
+                            </script>
+                            {{-- swal confirm --}}
                                 </div>
                             </td>
                         </tr>

@@ -29,13 +29,14 @@
 
         /* Gaya untuk kontainer tabel */
         .table-container {
-            max-width: 800px;
-            margin: 0 auto;
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
+            width: 200%; /* Mengatur lebar penuh */
+    background-color: #fff;
+    padding: 30px;
+    margin-left: 30px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
 
         /* Gaya untuk tabel */
         .custom-table {
@@ -91,7 +92,7 @@
         }
 
         .btn-dark {
-            background-color: #343a40;
+            background-color: #32a744;
             /* Warna latar belakang tombol */
             color: #ffffff;
             /* Warna teks tombol */
@@ -104,7 +105,7 @@
         .btn-dark:hover {
             background-color: #ffffff;
             /* Warna latar belakang saat dihover */
-            color: #343a40;
+            color: #4fa156;
             /* Warna teks saat dihover */
             transform: scale(1.1);
             /* Perubahan ukuran saat dihover */
@@ -133,12 +134,20 @@
             box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.5);
             /* Bayangan saat dihover */
         }
+        .highlight {
+    color: #49256b; /* Warna teks yang menonjol */
+    font-weight: bold;
+    font-size: 38px; /* Ukuran huruf yang lebih besar */
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+
+}
     </style>
 
     <body>
 
         <div class="table-container" style="width: 200%; height: 100%">
-            <h3>Data Pengumpulan Tugas Agama</h3>
+            <h3><span class="highlight">Data Pengumpulan Tugas Agama</span></h3>
+
                     <table class="custom-table">
                         <thead>
                             <tr>
@@ -147,7 +156,9 @@
                                 <th>Nama Guru</th>
                                 <th>Keterangan</th>
                                 <th>Bukti</th>
-                                <th>status</th>
+                                <th>Aksi</th>
+
+
                             </tr>
                         </thead>
                         <tbody>
@@ -160,9 +171,30 @@
                                     <td>{{ $t->nama_guru->nama }}</td>
                                     <td>{{ $t->keterangan }}</td>
                                     <td>
-                                        <img src="{{ asset('storage/' . $t->bukti) }}" alt="Gambar" class="img-fluid">
+                                        <img src="{{ asset('storage/' . $t->bukti) }}" alt="Gambar"  width="100" height="50" class="img-fluid">
                                     </td>
-                                    <td>{{ $t->status }}</td>
+                                    <td>
+                                        <div class="btn-group d-flex align-items-center" role="group">
+                                            <!-- Tombol Hapus -->
+                                            <form class="d-flex" action="tugas/update/{{ $t->id }}" method="POST" style="width: 70px">
+                                                @csrf
+                                                @method('PUT')
+                                                <!-- Tombol Edit -->
+                                                <button  type="submit" class="btn btn-dark btn-lg btn-block me-2">
+                                                    <i class="bi bi-check2-square" style="margin-top: 8px"></i>
+                                                </button>
+                                            </form>
+
+                                            <form action="tugas/tolak/{{ $t->id }}" method="POST" style="width: 70px">
+                                                @csrf
+                                                @method('PUT')
+                                                <button type="sumbit" class="btn btn-danger btn-lg btn-block" >
+                                                    <i class="bi bi-x-square"></i>
+                                                </button>
+                                            </form>
+
+                                        </div>
+                                    </td>
 
 
                                 </tr>
@@ -200,7 +232,7 @@
         </div> --}}
 
 
-        <<!-- Modal Edit Mapel -->
+        <!-- Modal Edit Mapel -->
             {{-- @foreach ($data as $mapel)
                 <div class="modal fade" id="editModal{{ $mapel->id }}" tabindex="-1"
                     aria-labelledby="editModalLabel{{ $mapel->id }}" aria-hidden="true">

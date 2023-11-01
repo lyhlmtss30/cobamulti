@@ -19,7 +19,12 @@ class DatabaseSeeder extends Seeder
             'email' => 'admin@admin.com',
             'password' => 'sayaguru',
             'role' => 'admin',
-            
+        ]);
+        \App\Models\User::factory()->create([
+            'name' => 'siswa',
+            'email' => 'siswa@gmail.com',
+            'password' => '12345678',
+            'role' => 'user',
         ]);
     }
 }

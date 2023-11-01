@@ -8,6 +8,7 @@ use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
+use Illuminate\Support\Facades\Session;
 
 class LoginController extends Controller
 {
@@ -31,7 +32,7 @@ class LoginController extends Controller
      */
 
     protected $redirectTo = RouteServiceProvider::HOME;
-
+//ini untuk rederect jika pengguna adalah admin, maka ke admin, jikauser ke user
     protected function redirectTo()
     {
         if (auth()->user()->role == 'admin') {
@@ -41,12 +42,7 @@ class LoginController extends Controller
         }
     }
 
-    protected function sendFailedLoginResponse(Request $request)
-    {
-        throw ValidationException::withMessages([
-            $this->username() => ['email atau password salah'],
-        ]);
-    }
+   
 
     protected function validateLogin(Request $request)
     {
@@ -62,12 +58,20 @@ class LoginController extends Controller
 
 
 
-    public function authenticate(Request $request)
-    {
-       
+    protected function authenticated(Request $request, $user)
+{
+    // Menyimpan pesan sukses di session untuk ditampilkan setelah pengguna berhasil login.
+    Session::flash('success', 'Selamat datang, Anda telah berhasil login!');
+
+    if ($user->role == 'admin') {
+        return redirect('/admin');
+    } else {
+        return redirect('/user');
     }
+}
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
+
     }
 }

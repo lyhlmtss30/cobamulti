@@ -16,13 +16,16 @@ class DataMapelController extends Controller
     public function index()
     {
         $data = data_mapel::all(); // Ambil semua data guru dari basis data
+
         return view('data_mapel.mapel', compact('data')); // Kirim data guru ke tampilan
     }
 
+
+    //ini nganu setiap mapel bdea beda
     public function mapelIndonesia()
     {
         $tugas = Tugas::whereHas('data_mapel', function ($query) {
-            $query->where('nama_mapel', 'bahasa indonesia');
+            $query->where('nama_mapel', 'bahasa indonesia')->wherein('status', ['menunggu', 'mengajukan ulang']);
         })->paginate(5);
         $nama_guru = nama_guru::all();
         $nama_mapel = data_mapel::all();
@@ -30,9 +33,7 @@ class DataMapelController extends Controller
     }
     public function mapelAgama()
     {
-        $tugas = Tugas::whereHas('data_mapel', function ($query) {
-            $query->where('nama_mapel', 'Pendidikan Agama Islam');
-        })->paginate(5);
+        $tugas = Tugas::whereHas('data_mapel', function ($query) {$query->where('nama_mapel', 'Pendidikan Agama Islam')->wherein('status', ['menunggu', 'mengajukan ulang']);})->paginate(5);
         $nama_guru = nama_guru::all();
         $nama_mapel = data_mapel::all();
         return view('dashboard_component.tugasagama', compact('tugas', 'nama_guru', 'nama_mapel')); // Kirim data guru ke tampilan
@@ -40,7 +41,7 @@ class DataMapelController extends Controller
     public function mapelMatematika()
     {
         $tugas = Tugas::whereHas('data_mapel', function ($query) {
-            $query->where('nama_mapel', 'Matematika');
+            $query->where('nama_mapel', 'Matematika')->wherein('status', ['menunggu', 'mengajukan ulang']);
         })->paginate(5);
         $nama_guru = nama_guru::all();
         $nama_mapel = data_mapel::all();
@@ -51,6 +52,8 @@ class DataMapelController extends Controller
     {
         //
     }
+
+
 
     /**
      * Store a newly created resource in storage.
@@ -93,29 +96,34 @@ class DataMapelController extends Controller
      * Update the specified resource in storage.
      */
     public function update(Request $request, data_mapel $data_mapel)
-    {
-        $request->validate([
-            'nama_mapel' => 'required',
+{
+    $request->validate([
+        'nama_mapel' => 'required',
+    ], [
+        'nama_mapel.required' => 'Nama Mapel Wajib Diisi'
+    ]);
 
-        ]);
+    $data_mapel->update([
+        'nama_mapel' => $request->input('nama_mapel'),
+    ]);
 
+    return redirect()->route('mapel.index')->with('success', 'Data mapel telah diperbarui.');
+}
 
-        $data_mapel->update([
-            'nama_mapel' => $request->input('nama_mapel'),
-        ]);
-
-
-
-
-        return redirect()->route('mapel.index')->with('success', 'Data mapel telah diperbarui.');
-    }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(data_mapel $data_mapel)
+    public function destroy($id)
     {
-        $data_mapel->delete(); // Menghapus data guru berdasarkan ID atau objek model.
+        $data_mapel = data_mapel::findOrFail($id);
+        $jumlah = Tugas::where('mapel_id',$data_mapel->id)->count();
+        if ($jumlah > 0) {
+            return redirect()->route('mapel.index')->with('error', 'Data mapel tidak dapat dihapus karena masih digunakan.');
+        }
+        else{
+            $data_mapel->delete();
+        }
 
         return redirect()->route('mapel.index')->with('success', 'Data mapel telah dihapus.');
     }

@@ -13,16 +13,18 @@ return new class extends Migration
     {
         Schema::create('tugas', function (Blueprint $table) {
             $table->id();
+            // agar user beda beda
+            $table->foreignId('user_id')->constrained('users');
+            // Kunci asing ke tabel nama_mapel
+            $table->foreignId('mapel_id')->constrained('data_mapel');
+            // Kunci asing ke tabel nama_guru
+            $table->unsignedBigInteger('guru_id')->nullable();
             $table->string('nama_siswa');
             $table->string('keterangan');
             $table->string('bukti');
+            $table->enum('status',['diterima','ditolak','menunggu', 'mengajukan ulang'])->default('menunggu');
             $table->timestamps();
-
-            // Kunci asing ke tabel nama_mapel
-            $table->foreignId('mapel_id')->constrained('data_mapel');
-
-            // Kunci asing ke tabel nama_guru
-            $table->foreignId('guru_id')->constrained('nama_gurus');
+            $table->foreign("guru_id")->references("id")->on("nama_gurus")->onDelete("cascade");
         });
     }
 

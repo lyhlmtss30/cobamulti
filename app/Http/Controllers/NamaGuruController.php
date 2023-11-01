@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\nama_guru;
+use App\Models\Tugas;
 use Illuminate\Http\Request;
 
 class NamaGuruController extends Controller
@@ -83,9 +84,18 @@ class NamaGuruController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(nama_guru $nama_guru)
+    public function destroy($id)
     {
-        $nama_guru->delete(); // Menghapus data guru berdasarkan ID atau objek model.
+
+        // Jika tidak terkait, hapus data guru
+        // $nama_guru->delete();
+        $guru = nama_guru::findOrFail($id);
+        $tugas = tugas::where('guru_id',$guru->id)->count();
+        if($tugas > 0){
+            return redirect()->back()->with('error','data sedang digunakan');
+        }else{
+            $guru->delete();
+        }
 
         return redirect()->route('guru.index')->with('success', 'Data guru telah dihapus.');
     }
