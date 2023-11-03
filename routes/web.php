@@ -21,10 +21,18 @@ use Illuminate\Support\Facades\Auth;
 | routes are loaded by the RouteServiceProvider and all of them will
 | be assigned to the "web" middleware group. Make something great!
 |
+
 */
+Auth::routes(['verify' => true]);
+
+Route::get('/', function () {
+    return view('welcome');
+});
+
+
 Route::middleware(['CekRole:user'])->group(function (){
     //buat anu, ulasan
-    Route::resource('komentar', KomentarController::class); 
+    Route::resource('komentar', KomentarController::class);
     //buat serach
     Route::get('/tugas/search', [TugasController::class, 'search'])->name('tugas.search');
 
@@ -83,11 +91,8 @@ Route::resource('komentaradmin', KomentarAdminController::class);
 
 });
 
-Route::get('/', function () {
-    return view('welcome');
-});
 
 
 
-Auth::routes(['verify' => true]);
+
 

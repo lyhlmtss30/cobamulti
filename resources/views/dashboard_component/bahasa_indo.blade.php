@@ -291,7 +291,7 @@
                                 </option>
                                 @endforeach
                             </select>
-                        </div>
+                    </div>
 
                         <div class="mb-3">
                             <label for="nama_guru">Nama Guru</label>
@@ -314,9 +314,14 @@
                         <div class="mb-3">
                             <label for="bukti">Bukti</label>
                             <input type="file" class="form-control" id="bukti" name="bukti">
+                            <div>
+                                <p><strong>Gambar Sebelumnya:</strong></p>
+                                <img src="{{ asset('storage/' . $tugas->bukti) }}" id="old-image" alt="Gambar Lama" width="90" height="80">
+                            </div>
                         </div>
+
                     </div>
-                    <div class="modal-footer">
+                    <div class="modal-footer">\
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                         <button type="submit" class="btn btn-primary">Kirim</button>
                     </div>
@@ -340,6 +345,26 @@
 
 @if ($errors->any())
 <script>
+     // Fungsi untuk menampilkan gambar lama saat modal dibuka
+     function displayOldImage(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                $('#old-image').attr('src', e.target.result);
+            };
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+    // Menangani perubahan pada input gambar
+    $('#bukti').change(function() {
+        displayOldImage(this);
+    });
+
+    // Saat modal edit dibuka, tampilkan gambar lama
+    $('#edit{{ $tugas->id }}').on('shown.bs.modal', function() {
+        displayOldImage($('#bukti'));
+    });
     $(document).ready(function() {
         @foreach($errors->all() as $error)
         toastr.error('{{ $error }}', 'Error', {

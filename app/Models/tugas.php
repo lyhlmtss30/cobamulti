@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class Tugas extends Model
 {
     use HasFactory;
-
+    
     protected $table = 'tugas'; // Sesuaikan dengan nama tabel Anda
 
     protected $guarded=[
